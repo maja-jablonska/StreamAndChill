@@ -1,4 +1,4 @@
-from typing import Dict, Tuple
+from typing import Dict, Tuple, List
 
 import essentia.standard as es
 
@@ -11,7 +11,11 @@ FRAME_LENGTH: int = FRAME_LENGTH_SECONDS*SAMPLE_RATE
 CHILL_DANCEABLE_LOW_THRESHOLD: float = 1.25
 
 
-def danceability_timestamps(filepath: str) -> Dict[Tuple[int, int], float]:
+danceability: es.Danceability = es.Danceability()
+beats_loudness: es.BeatsLoudness = es.BeatsLoudness()
+
+
+def danceability_timestamps(filepath: str) -> List[Tuple[Tuple[int, int], float]]:
     """
     Returns a dict with start and end times of the fragment and whether the
     fragment is danceable
@@ -20,13 +24,15 @@ def danceability_timestamps(filepath: str) -> Dict[Tuple[int, int], float]:
     """
     audio = es.MonoLoader(filename=filepath)()
     elapsed: int = 0
-    timestamps: Dict[Tuple[int, int], bool] = {}
+    timestamps: List[Tuple[Tuple[int, int], float]] = []
 
     for frame in es.FrameGenerator(audio, FRAME_LENGTH, hopSize=FRAME_LENGTH):
-        danceability, _ = es.Danceability()(frame)
+        danceability, _ = danceability(frame)
 
         elapsed += FRAME_LENGTH_SECONDS
         print(f'{elapsed} seconds')
-        timestamps[(elapsed-FRAME_LENGTH_SECONDS, elapsed)] = danceability
+        timestamps.append(
+            ((elapsed-FRAME_LENGTH_SECONDS, elapsed), danceability)
+        )
 
     return timestamps
