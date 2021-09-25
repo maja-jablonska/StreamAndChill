@@ -101,4 +101,4 @@ def prepare_infer_from_sample(path: str):
 
 def check_if_aggressive(model: tfk.Model, mp3_path: str) -> bool:
   infer = model(prepare_infer_from_sample(mp3_path))
-  return infer[1] >= 0.9
+  return infer[0][1] >= 0.9
