@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
-function App() {
+import { GetReadyOverlay } from "./GetReadyOverlay/GetReadyOverlay";
+
+export const App = () => {
+  const [showGetReadyOverlay, setShowGetReadyOverlay] = useState(true);
+  setTimeout(() => setShowGetReadyOverlay(false), 6000);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <iframe
+          title="youtube-vid"
+          width="1000"
+          height="600"
+          src="https://www.youtube.com/embed/tgbNymZ7vqY"
+        ></iframe>
+        {/* {showGetReadyOverlay && ( */}
+        <GetReadyOverlay isShown={showGetReadyOverlay} />
+        {/* )} */}
       </header>
     </div>
   );
-}
+};
 
 export default App;

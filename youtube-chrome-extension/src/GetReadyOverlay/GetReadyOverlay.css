@@ -1,0 +1,45 @@
+.overlayContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  opacity: 0;
+
+  animation: animated-text 4s linear 2s, animation-text-hide 4s linear 6s;
+}
+
+@keyframes animated-text {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes animation-text-hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.countdownText {
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0 15px;
+}
+
+.orange {
+  width: 50px;
+  animation: orange-spin infinite 5s linear;
+}
+
+@keyframes orange-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

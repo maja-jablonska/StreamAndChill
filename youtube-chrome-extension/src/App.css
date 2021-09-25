@@ -1,3 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
+
+body {
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+}
+
 .App {
   text-align: center;
 }
@@ -14,7 +21,6 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
