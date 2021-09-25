@@ -5,6 +5,8 @@ from typing import List, Tuple, Dict
 from pytube import YouTube
 from manual_analysis import danceability_timestamps
 
+
+
 import os
 cwd = os.getcwd()
 
@@ -20,5 +22,6 @@ def extract_audio(ytpath: str) -> str:
         os.remove('./tmp.mp4')
 
         return str(d)
-    except Exception:
+    except Exception as e:
+        print(e)
         return {}
