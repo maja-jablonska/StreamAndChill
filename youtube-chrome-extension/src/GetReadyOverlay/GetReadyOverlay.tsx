@@ -1,5 +1,5 @@
 import "./GetReadyOverlay.css";
-import orangeImg from "./orange1.svg";
+import orangeImg from "../assets/orange1.svg";
 
 export const GetReadyOverlay = ({ text }: { text: string }) => {
   return (
