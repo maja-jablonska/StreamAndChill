@@ -47,8 +47,9 @@ def danceability_timestamps(filepath: str) -> List[Dict[str, Any]]:
                  "flatness": flatness
                  }
             )
-        except Exception:
-            continue
+        except Exception as e:
+            print(f'Exception while analyzing frames: {e}')
+            break
 
     del danceability_measurement
     del dynamic_complexity_measurement
