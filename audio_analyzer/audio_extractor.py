@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from pytube import YouTube
-from bpm import danceable
+from manual_analysis import danceable
 
 import os
 cwd = os.getcwd()
