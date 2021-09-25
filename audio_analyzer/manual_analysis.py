@@ -1,29 +1,32 @@
+from typing import Dict, Tuple
+
 import essentia.standard as es
 
 SAMPLE_RATE: int = 44100
 
-FRAME_LENGTH: int = 30
+FRAME_LENGTH_SECONDS: int = 30
 
-# If something is chill for 5 minutes, we decide it's chill.
-MIN_CHILL_TIME: int = 10*FRAME_LENGTH
-HOP_SIZE: int = int()
+FRAME_LENGTH: int = FRAME_LENGTH_SECONDS*SAMPLE_RATE
 
 CHILL_DANCEABLE_LOW_THRESHOLD: float = 1.25
 
 
-def danceable(filepath: str) -> bool:
+def danceability_timestamps(filepath: str) -> Dict[Tuple[int, int], float]:
+    """
+    Returns a dict with start and end times of the fragment and whether the
+    fragment is danceable
+    :param filepath:
+    :return:
+    """
     audio = es.MonoLoader(filename=filepath)()
     elapsed: int = 0
+    timestamps: Dict[Tuple[int, int], bool] = {}
 
-    for frame in es.FrameGenerator(audio, SAMPLE_RATE*FRAME_LENGTH):
-        print("Detecting danceability...")
+    for frame in es.FrameGenerator(audio, FRAME_LENGTH, hopSize=FRAME_LENGTH):
         danceability, _ = es.Danceability()(frame)
-        if danceability > CHILL_DANCEABLE_LOW_THRESHOLD:
-            print(f'Oh! {danceability}')
-            return True
 
-        elapsed += FRAME_LENGTH
+        elapsed += FRAME_LENGTH_SECONDS
+        print(f'{elapsed} seconds')
+        timestamps[(elapsed-FRAME_LENGTH_SECONDS, elapsed)] = danceability
 
-        print(danceability)
-        if elapsed > MIN_CHILL_TIME:
-            return False
+    return timestamps
