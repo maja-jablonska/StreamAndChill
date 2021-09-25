@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from re import sub
 
-from typing import List, Tuple, Dict
+from typing import Any, List, Dict
 
 from pytube import YouTube
 from manual_analysis import danceability_timestamps
@@ -9,6 +9,7 @@ from musiccnn import load_ckpt_model, check_if_aggressive
 
 import os
 import subprocess
+
 
 cwd = os.getcwd()
 _MODEL_PATH = './hackzurich.savedmodel'
@@ -26,6 +27,11 @@ def extract_audio(ytpath: str) -> str:
 
     target_mp4 = 'tmp.mp4'
     target_mp3 = 'tmp.mp3'
+def extract_audio(ytpath: str) -> Dict[str, Any]:
+    try:
+        yt: YouTube = YouTube(ytpath)
+        video = yt.streams.filter(only_audio=True).first()
+        video.download(output_path='./', filename='tmp.mp4')
 
     video.download(output_path='./', filename=target_mp4)
     convert_to_mp3(target_mp4, target_mp3)
@@ -35,5 +41,10 @@ def extract_audio(ytpath: str) -> str:
 
     d: List[Tuple[Tuple[int, int], Dict[str, float]]] = danceability_timestamps(target_mp4)
     os.remove(target_mp4)
+        d: List[Dict[str, Any]] = danceability_timestamps('./tmp.mp4')
+        os.remove('./tmp.mp4')
 
-    return str(d)
+        return {"data": d}
+    except Exception as e:
+        print(f'Exception! {e}')
+        return {"data": []}
