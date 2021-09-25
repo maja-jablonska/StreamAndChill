@@ -34,7 +34,6 @@ def danceability_timestamps(filepath: str) -> List[Dict[str, Any]]:
             danceability, _ = danceability_measurement(frame)
             bpm, _, _, _ = rhythm(frame)
             _, avg_db_deviation = dynamic_complexity_measurement(frame)
-            flatness = flatness_measurement(frame)
 
             elapsed += FRAME_LENGTH_SECONDS
             print(f'{elapsed} seconds')
@@ -43,8 +42,7 @@ def danceability_timestamps(filepath: str) -> List[Dict[str, Any]]:
                  "end": elapsed,
                  "danceability": np.round(danceability, 2),
                  "avg_db_deviation": np.round(avg_db_deviation, 2),
-                 "bpm": np.round(bpm, 2),
-                 "flatness": flatness
+                 "bpm": np.round(bpm, 2)
                  }
             )
         except Exception as e:
