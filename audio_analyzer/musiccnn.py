@@ -1,5 +1,6 @@
 import numpy as np
 from typing import Tuple
+import librosa
 import tensorflow as tf
 import tensorflow.keras as tfk
 import tensorflow.keras.layers as l
@@ -85,3 +86,19 @@ def train_get_model(data_path: str) -> tfk.Model:
   )
 
   return model
+
+def create_spectrogram(track_path):
+  y, sr = librosa.load(track_path, duration=2.97)
+  spect = librosa.feature.melspectrogram(y=y, sr=sr)
+  return spect
+
+def prepare_infer_from_sample(path: str):
+  X = np.empty((0 , 128 , 128))
+  spect = create_spectrogram(path)
+  X = np.append(X, [spect], axis=0)
+  X = np.array([x.reshape((128 , 128 , 1)) for x in X])
+  return X
+
+def check_if_aggressive(model: tfk.Model, mp3_path: str) -> bool:
+  infer = model(prepare_infer_from_sample(mp3_path))
+  return infer[1] >= 0.9
