@@ -23,7 +23,6 @@ def danceability_timestamps(filepath: str) -> List[Dict[str, Any]]:
     danceability_measurement: es.Danceability = es.Danceability()
     dynamic_complexity_measurement: es.DynamicComplexity = es.DynamicComplexity(frameSize=FRAME_LENGTH_SECONDS)
     rhythm: es.RhythmExtractor = es.RhythmExtractor()
-    flatness_measurement: es.Flatness = es.Flatness()
 
     audio = es.EasyLoader(filename=filepath)()
     elapsed: int = 0
