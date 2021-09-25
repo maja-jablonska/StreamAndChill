@@ -1,4 +1,0 @@
-essentia==2.1b6.dev374
-flask==2.0.1
-pydub==0.25.1
-pytube==11.0.1
