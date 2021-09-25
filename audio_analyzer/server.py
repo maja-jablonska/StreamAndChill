@@ -1,3 +1,5 @@
+from os import environ
+
 from flask import Flask
 from audio_extractor import extract_audio
 
@@ -11,4 +13,4 @@ def hello_world(video_id: str):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=False, host='0.0.0.0', port=environ.get("PORT", 5000))
