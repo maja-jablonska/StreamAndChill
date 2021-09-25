@@ -13,12 +13,16 @@ $bgColor: #187bec;
 $lightblue: #4f9dc1;
 $darkerblue: #386ea0;
 
+$color-orange-dark: #ff7900;
+$color-orange-light: #ffb72f;
+$color-white: #fff;
+
 $numOfColBlocks: 3; // must be higher than 2
 $deg: 360deg / $numOfColBlocks;
 
-$red: #d66203;
-$yellow: #ffd6d6;
-$blue: #187bec;
+$red: $color-orange-dark;
+$yellow: $color-orange-light;
+$blue: $color-white;
 
 $blocksColors: (
   1: $red,
