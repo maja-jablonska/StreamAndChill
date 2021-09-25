@@ -1,8 +1,19 @@
 from __future__ import unicode_literals
+
+from typing import Dict
+
 import youtube_dl
+
+from bpm import detect_bpm
 
 import os
 cwd = os.getcwd()
+
+
+def get_temp_filename() -> str:
+    for item in os.listdir(os.curdir):
+        if item.endswith(".mp3"):
+            return item
 
 
 def remove_temp_files():
@@ -29,5 +40,7 @@ def extract_audio(ytpath: str) -> str:
         ydl.download([ytpath])
         print(ydl)
 
+    specs: Dict[str, float] = detect_bpm(get_temp_filename())
+
     remove_temp_files()
-    return "Done downloading"
+    return str(specs)
