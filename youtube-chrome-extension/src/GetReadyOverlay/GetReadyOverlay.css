@@ -4,7 +4,7 @@
   align-items: center;
   opacity: 0;
 
-  animation: animated-text 4s linear 2s, animation-text-hide 4s linear 6s;
+  animation: animated-text 3s linear 1s, animation-text-hide 3s linear 4s;
 }
 
 @keyframes animated-text {
