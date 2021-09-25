@@ -21,5 +21,5 @@ def extract_audio(ytpath: str) -> Dict[str, Any]:
 
         return {"data": d}
     except Exception as e:
-        print(e)
+        print(f'Exception! {e}')
         return {"data": []}
