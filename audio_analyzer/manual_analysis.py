@@ -27,4 +27,3 @@ def danceable(filepath: str) -> bool:
         print(danceability)
         if elapsed > MIN_CHILL_TIME:
             return False
-

@@ -13,7 +13,7 @@ def extract_audio(ytpath: str) -> str:
     video = yt.streams.filter(only_audio=True).first()
     video.download(output_path='./', filename='tmp.mp4')
 
-    d = danceable('./tmp.mp4')
+    d: bool = danceable('./tmp.mp4')
     os.remove('./tmp.mp4')
 
     return str(d)
