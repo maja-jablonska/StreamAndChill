@@ -1,33 +1,33 @@
 from __future__ import unicode_literals
 import youtube_dl
 
-
-class MyLogger(object):
-    def debug(self, msg):
-        pass
-
-    def warning(self, msg):
-        pass
-
-    def error(self, msg):
-        print(msg)
+import os
+cwd = os.getcwd()
 
 
-def my_hook(d):
-    print(d)
-    if d['status'] == 'finished':
-        print('Done downloading, now converting ...')
+def remove_temp_files():
+    for item in os.listdir(os.curdir):
+        if item.endswith(".mp3"):
+            os.remove(item)
 
 
-ydl_opts = {
-    'format': 'bestaudio/best',
-    'postprocessors': [{
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
-        'preferredquality': '192',
-    }],
-    'logger': MyLogger(),
-    'progress_hooks': [my_hook],
-}
-with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-    ydl.download(['https://www.youtube.com/watch?v=rzLJ8mdI-aY'])
+def extract_audio(ytpath: str) -> str:
+    def my_hook(d):
+        if d['status'] == 'finished':
+            print('Done downloading, now converting ...')
+
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+        'progress_hooks': [my_hook],
+    }
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([ytpath])
+        print(ydl)
+
+    remove_temp_files()
+    return "Done downloading"
