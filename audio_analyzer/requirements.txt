@@ -1,5 +1,5 @@
 numpy==1.19.5
-SoundFile==0.10.3.post1
+soundfile
 tensorflow-cpu==2.6.0
 librosa==0.8.1
 essentia==2.1b6.dev374
