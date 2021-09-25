@@ -1,2 +1,4 @@
+essentia==2.1b6.dev374
 flask==2.0.1
 youtube-dl==2021.6.6
+ffmpeg
