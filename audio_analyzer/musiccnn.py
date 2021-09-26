@@ -22,7 +22,15 @@ _X_VALID = 'X_valid.npy'
 _Y_VALID = 'y_valid_final.npy'
 
 
-def load_train_valid_data(path: str) -> Tuple[np.array, np.array, np.array, np.array]:
+def load_train_valid_data(path: str) -> TrainData:
+    """Loads train and valid data and put that into dataclass
+
+    Args:
+        path (str): path to a folder where data is stored
+
+    Returns:
+      TrainData: train data stored in dataclass
+    """
     y_train_final = np.load(join(path, _Y_TRAIN))
     y_valid_final = np.load(join(path, _Y_VALID))
     x_train = np.load(join(path, _X_TRAIN))
@@ -31,7 +39,19 @@ def load_train_valid_data(path: str) -> Tuple[np.array, np.array, np.array, np.a
     return TrainData(x_train, y_train_final, x_valid, y_valid_final)
 
 
-def musicccnn(n_classes, input_shape) -> tfk.Model:
+def musicccnn(n_classes: int, input_shape: Tuple[int]) -> tfk.Model:
+    """Creates CNN Network for the music analysis.
+       Input of the networks is a batched tensor of shape (bs, 128, 128, 1)
+       which represents spectrogram. The output is single tensor of shape (bs, 2)
+       representing probability of being calm ([0]) or being aggressive music ([1]).
+
+    Args:
+        n_classes (int): number of classes which classifier recognizes
+        input_shape (Tuple[int]): input shape
+
+    Returns:
+        tfk.Model: model for recognizing music mood
+    """
     model = tf.keras.Sequential()
 
     model.add(tf.keras.layers.Conv2D(
@@ -63,10 +83,26 @@ def musicccnn(n_classes, input_shape) -> tfk.Model:
 
 
 def load_ckpt_model(ckpt_path: str) -> tfk.Model:
+    """loads checkpoint and returns a model
+
+    Args:
+        ckpt_path (str): path to the checkpoint
+
+    Returns:
+        tfk.Model: TF2 Model
+    """
     return tfk.models.load_model(ckpt_path)
 
 
 def train_get_model(data_path: str) -> tfk.Model:
+    """Trains and return trained model
+
+    Args:
+        data_path (str): path to the train, valid data
+
+    Returns:
+        tfk.Model: TF2 Model
+    """
     data = load_train_valid_data(data_path)
     model = musicccnn(n_classes=2, input_shape=(128, 128, 1))
 
@@ -93,13 +129,29 @@ def train_get_model(data_path: str) -> tfk.Model:
     return model
 
 
-def create_spectrogram(track_path):
+def create_spectrogram(track_path: str) -> Tuple:
+    """Creates spectrogram of the track
+
+    Args:
+        track_path (str): path to the music track
+
+    Returns:
+        Tuple: track spectrogram
+    """
     y, sr = librosa.load(track_path, duration=2.97)
     spect = librosa.feature.melspectrogram(y=y, sr=sr)
     return spect
 
 
-def prepare_infer_from_sample(path: str):
+def prepare_infer_from_sample(path: str) -> np.array:
+    """Prepares batch for the model inference
+
+    Args:
+        path (str): path to the sound track
+
+    Returns:
+        np.array: batch ready for the inference
+    """
     X = np.empty((0, 128, 128))
     spect = create_spectrogram(path)
     X = np.append(X, [spect], axis=0)
@@ -108,5 +160,16 @@ def prepare_infer_from_sample(path: str):
 
 
 def check_if_aggressive(model: tfk.Model, mp3_path: str) -> bool:
+    """Checks if sound isn't calm 
+
+    Args:
+        model (tfk.Model): TF2 Model - binary classifier
+        mp3_path (str): path to the track
+
+    Returns:
+        bool: true if track seems to be aggressive, false otherwise
+    """
     infer = model(prepare_infer_from_sample(mp3_path))
-    return infer[0][1] >= 0.9
+    probability = infer[0][1]
+    trashhold = 0.9
+    return probability >= trashhold
