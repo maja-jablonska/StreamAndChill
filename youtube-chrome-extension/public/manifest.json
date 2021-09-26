@@ -1,0 +1,35 @@
+{
+  "name": "Netflix and chill",
+  "version": "1.0",
+  "description": "Netflix and meditate whenever the context allows it",
+  "author": "HackZurich Team Netflix and Chill",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "declarativeContent",
+    "webNavigation", 
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://*.youtube.com/*",
+    "https://dreamteamzurich.herokuapp.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.youtube.com/watch*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "logo.png"
+  },
+  "manifest_version": 3,
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
