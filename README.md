@@ -36,6 +36,8 @@ Dataset was built using 30 second long chunks of various mixtapes we have subjec
 
 The core of the model is a convolutional neural network, similar to the Pons, J. and Serra, X., 2019. musicnn: Pre-trained convolutional neural networks for music audio tagging which works on sound spectrograms.
 
+The core of the model is a convolutional neural network, similar to [2].
+
 #### Putting it all together: python webservice
 
 We are serving the estimates using a webservice based on the framework [flask](https://flask.palletsprojects.com/en/2.0.x/).
@@ -84,6 +86,8 @@ There is so much more in the streaming world - Netflix, HBO GO, Amazon Prime - t
 
 **References**
 [1] Streich, S. and Herrera, P., Detrended Fluctuation Analysis of Music Signals: Danceability Estimation and further Semantic Characterization, Proceedings of the AES 118th Convention, Barcelona, Spain, 2005
+
+[2] Pons, J. and Serra, X., 2019. musicnn: Pre-trained convolutional neural networks for music audio tagging which works on sound spectrograms
 
 ---
 
