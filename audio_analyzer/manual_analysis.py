@@ -13,13 +13,15 @@ CHILL_DANCEABLE_LOW_THRESHOLD: float = 1.25
 
 
 def danceability_timestamps(filepath: str) -> List[Dict[str, Any]]:
-    """
-    Returns a dict with start and end times of the fragment and whether the
+    """Returns a dict with start and end times of the fragment and whether the
     fragment is danceable
-    :param filepath:
-    :return:
-    """
 
+    Args:
+        filepath (str): path to the track
+
+    Returns:
+        List[Dict[str, Any]]: Dictionary with metadata
+    """
     danceability_measurement: es.Danceability = es.Danceability()
     dynamic_complexity_measurement: es.DynamicComplexity = es.DynamicComplexity(
         frameSize=FRAME_LENGTH_SECONDS)

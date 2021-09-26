@@ -16,7 +16,13 @@ _MODEL_PATH = './hackzurich.savedmodel'
 _model = load_ckpt_model(_MODEL_PATH)
 
 
-def convert_to_mp3(src_file, target_file) -> None:
+def convert_to_mp3(src_file: str, target_file: str) -> None:
+    """Converts src_file to mp3
+
+    Args:
+        src_file (str): src file path
+        target_file (str): target file path
+    """
     assert(subprocess.run([
         'ffmpeg', '-i', src_file, '-vn', '-acodec', 'libmp3lame', '-ac',
         '2', '-ab', '160k', '-ar', '48000', target_file
@@ -24,7 +30,14 @@ def convert_to_mp3(src_file, target_file) -> None:
 
 
 def extract_audio(ytpath: str) -> Dict[str, Any]:
+    """Extracts metrics about audio
 
+    Args:
+        ytpath (str): youtube url
+
+    Returns:
+        Dict[str, Any]: track metadata
+    """
     target_mp4 = 'tmp.mp4'
     target_mp3 = 'tmp.mp3'
 
