@@ -19,7 +19,7 @@ _model = load_ckpt_model(_MODEL_PATH)
 def convert_to_mp3(src_file, target_file) -> None:
     assert(subprocess.run([
         'ffmpeg', '-i', src_file, '-vn', '-acodec', 'libmp3lame', '-ac',
-         '2', '-ab', '160k', '-ar', '48000', target_file
+        '2', '-ab', '160k', '-ar', '48000', target_file
     ]).returncode == 0)
 
 
