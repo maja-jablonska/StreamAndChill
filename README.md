@@ -32,7 +32,7 @@ Extracted features:
 
 In order to determine if the song is _calm_ we trained a binary classifier.
 
-Dataset was built using 30 second long chunks of various mixtapes we have subjectively labeled as calm (lo-fi, slow pop, chillhop, meditation music) or aggressive (metal, techno, fast hip-hop, club music).
+Dataset was built using 30 second long chunks of various mixtapes we have subjectively labeled as calm (lo-fi, slow pop, chillhop, meditation music) or aggressive (metal, techno, fast hip-hop, club music). Due to time limits and the fact that we didn't use any pretrained checkpoint, we had to use small dataset (~1500 30s samples) targeting some boundary subsets for these genres.
 
 The core of the model is a convolutional neural network, similar to the Pons, J. and Serra, X., 2019. musicnn: Pre-trained convolutional neural networks for music audio tagging which works on sound spectrograms.
 
