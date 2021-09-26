@@ -36,12 +36,15 @@ def extract_audio(ytpath: str) -> Dict[str, Any]:
         video.download(output_path='./', filename=target_mp4)
         convert_to_mp3(target_mp4, target_mp3)
 
+        print("Converted")
+
         is_aggresive: bool = check_if_aggressive(_model, target_mp3)
 
         d: List[Dict[str, Any]] = danceability_timestamps('./tmp.mp4')
         os.remove('./tmp.mp4')
+        os.remove('./tmp.mp3')
 
-        return {"timestamps": d, "aggresive": is_aggresive}
+        return {"timestamps": d, "aggresive": bool(is_aggresive.numpy())}
     except Exception as e:
         print(f'Exception! {e}')
         return {"timestamps": [], "aggresive": True}
