@@ -65,6 +65,16 @@ Response:
 }
 ```
 
+#### Google Chrome extension
+
+Our solution is a Google Chrome extension running in the background when you browse Youtube. The current version has the following functionality:
+ - We detect the video id and query the python webservice to retrieve data about the character of audio in the video,
+ - Using a set of very simple rules based on empirically estimated thresholds, we estimate if the video can be classified as calm and we pick the calmest fragment to start breathing exercises. We plan to use a trained classifier in the future for this purpose,
+ - We match the current video timestamp with the estimated starting timestamp of breathing exercises. Currently, we open new window to start the exercise session, but in the future we'd like it to be an overlay on top of the video that does not interrupt watching the video for providing better and non-invasive user experience.
+
+ Below there is a screenshot of the working extension:
+![screenshot](screenshot_app.PNG)
+
 ## Challenges we ran into
 
 Determining the mood of the music is definitely a challenging task! Mood depends on so many features and is very difficult to quantify. Consider some particular examples, such as slow metal songs, which have low bpm and yet are heavy and powerful. On the other hand, some lo-fi tracks can have a fast beat underneath, yet they are relaxing and pleasant.
@@ -117,3 +127,18 @@ To push use command line from the root directory:
 ```
 git subtree push --prefix audio_analyzer heroku main
 ```
+
+### Breathing exercises FE
+
+```
+cd breathing-exercise
+yarn install
+yarn start
+```
+Application will start running at `localhost:3000`
+
+### Chrome extension
+
+1. Go to Google Chrome > `chrome://extensions`
+2. Switch to the developer's mode
+3. Choose `Load unpacked` and pick `youtube-chrome-extension` directory.
