@@ -36,6 +36,33 @@ Dataset was built using 30 second long chunks of various mixtapes we have subjec
 
 The core of the model is a convolutional neural network, similar to the Pons, J. and Serra, X., 2019. musicnn: Pre-trained convolutional neural networks for music audio tagging which works on sound spectrograms.
 
+#### Putting it all together: python webservice
+
+We are serving the estimates using a webservice based on the framework [flask](https://flask.palletsprojects.com/en/2.0.x/).
+
+There is just a single GET endpoint which accepts ```video_id```, processes the video's audio and returns the following JSON:
+
+```
+GET /<video_id>
+```
+
+Response:
+
+```
+{
+  "timestamps": [
+    {
+      "start": beginning of the fragment in seconds,
+      "end": end of the fragment in seconds,
+      "avg_db_deviation": average dB deviation as float,
+      "bpm": beats per minute as float,
+      "danceability": danceability index as float,
+    }, ...
+  ],
+  "aggresive": boolean
+}
+```
+
 ## Challenges we ran into
 
 Determining the mood of the music is definitely a challenging task! Mood depends on so many features and is very difficult to quantify. Consider some particular examples, such as slow metal songs, which have low bpm and yet are heavy and powerful. On the other hand, some lo-fi tracks can have a fast beat underneath, yet they are relaxing and pleasant.
