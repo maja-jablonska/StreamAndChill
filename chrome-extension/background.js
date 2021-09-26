@@ -37,3 +37,13 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     });
   }
 });
+
+browser.runtime.onMessage.addListener((request) => {
+  if (request.open) {
+    return new Promise(resolve => {
+      chrome.browserAction.getPopup({}, (popup) => {
+        return resolve(popup)
+      })
+    })
+  }
+})

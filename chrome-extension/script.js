@@ -1,4 +1,7 @@
 chrome.runtime.onMessage.addListener((message, _sender, _sendResponse) => {
+  console.log("message :>> ", message);
+  console.log("_sender :>> ", _sender);
+  console.log("_sendResponse :>> ", _sendResponse);
   changeSubtitlesStyle(message.vPos, message.fSize, message.fColor);
 });
 
