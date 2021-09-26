@@ -57,3 +57,32 @@ There is so much more in the streaming world - Netflix, HBO GO, Amazon Prime - t
 
 **References**
 [1] Streich, S. and Herrera, P., Detrended Fluctuation Analysis of Music Signals: Danceability Estimation and further Semantic Characterization, Proceedings of the AES 118th Convention, Barcelona, Spain, 2005
+
+---
+
+# Deployment
+
+## Local build
+
+### Flask server
+
+Everything needed for the server is in the ```/audio analyzer``` directory.
+
+1. Install Aptfile requirements with apt-get
+2. Install pip requirements from requirements.txt
+3. Start flask server with ```python server.py```
+
+#### Deploying of Heroku
+
+It is adjusted for Heroku deployment, you just need to remember about specific buildpacks:
+
+```
+heroku buildpacks:add --index 1 https://github.com/dwnld/heroku-buildpack-ffmpeg.git -a dreamteamzurich
+heroku buildpacks:add --index 1 heroku/python -a dreamteamzurich
+```
+
+To push use command line from the root directory:
+
+```
+git subtree push --prefix audio_analyzer heroku main
+```
