@@ -8,9 +8,9 @@ export const App = () => {
       <header className="App-header">
         <iframe
           title="youtube-vid"
-          width="1000"
-          height="600"
-          src="https://www.youtube.com/embed/tgbNymZ7vqY"
+          width="1440"
+          height="850"
+          src="https://www.youtube.com/embed/W86cTIoMv2U"
         ></iframe>
         <Overlay />
       </header>
